@@ -1,4 +1,4 @@
-# Dolphin 
+# Dolphin - AI Automation Platform
 
 Demo page for a AI-powered data pipeline automation platform. Built with React and Vite.
 
