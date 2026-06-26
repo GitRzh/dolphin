@@ -1,0 +1,594 @@
+/* ─── Reset & Base ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --c-yellow:  #FFC801;
+  --c-orange:  #FF9932;
+  --c-ink:     #0D1F28;
+  --c-teal:    #114C5A;
+  --c-noir:    #172B36;
+  --c-frost:   #F1F6F4;
+  --c-mint:    #D9E8E2;
+  --c-green:   #4ade80;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--c-ink);
+  color: var(--c-frost);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ───────────────── Scrollbar ───────────────── */
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-yellow) var(--c-ink);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(13,31,40,.98),
+      rgba(23,43,54,.98)
+    );
+}
+
+::-webkit-scrollbar-thumb {
+  background:
+    linear-gradient(
+      180deg,
+      var(--c-yellow),
+      var(--c-orange)
+    );
+  border: 3px solid var(--c-ink);
+  border-radius: 999px;
+  transition:
+    background 180ms ease-out,
+    border-color 180ms ease-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(
+      180deg,
+      #ffe14d,
+      #ffb347
+    );
+}
+
+::-webkit-scrollbar-thumb:active {
+  background:
+    linear-gradient(
+      180deg,
+      #ffc801,
+      #ff9932
+    );
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--c-ink);
+}
+
+/* ─── Typography helpers ───────────────────────────────────────────────── */
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+.stat-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--c-frost);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* ─── Tags / badges ────────────────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid rgba(255,200,1,0.2);
+  color: rgba(241,246,244,0.55);
+  text-transform: uppercase;
+}
+
+.tag-accent {
+  color: var(--c-yellow);
+  border-color: rgba(255,200,1,0.35);
+  background: rgba(255,200,1,0.06);
+}
+
+/* ─── Buttons ──────────────────────────────────────────────────────────── */
+.btn-primary,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.65rem 1.25rem;
+  text-decoration: none;
+  border: none;
+  transition: background-color 160ms ease-out, color 160ms ease-out, border-color 160ms ease-out;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--c-yellow);
+  color: var(--c-ink);
+}
+.btn-primary:hover { background: #e6b400; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--c-frost);
+  border: 1px solid rgba(255,200,1,0.25);
+}
+.btn-ghost:hover {
+  border-color: var(--c-yellow);
+  color: var(--c-yellow);
+}
+
+/* ─── Nav link ─────────────────────────────────────────────────────────── */
+.nav-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(241,246,244,0.55);
+  text-decoration: none;
+  transition: color 160ms ease-out;
+}
+.nav-link:hover { color: var(--c-yellow); }
+
+/* ─── Pricing toggle ───────────────────────────────────────────────────── */
+.toggle-track {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: rgba(255,200,1,0.1);
+  border: 1px solid rgba(255,200,1,0.2);
+  transition: background 180ms ease-out, border-color 180ms ease-out;
+  padding: 0;
+}
+.toggle-track.active {
+  background: rgba(255,200,1,0.2);
+  border-color: rgba(255,200,1,0.5);
+}
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background: rgba(241,246,244,0.4);
+  transition: transform 180ms ease-out, background 180ms ease-out;
+}
+.toggle-track.active .toggle-thumb {
+  transform: translateX(20px);
+  background: var(--c-yellow);
+}
+
+/* ─── Testimonials vertical label (kept for fallback) ──────────────────── */
+.vertical-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,200,1,0.35);
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ─── Marquee ──────────────────────────────────────────────────────────── */
+/*
+  Single animation: scroll right-to-left.
+  Track contains 2× items so seamless loop at -50%.
+*/
+.marquee-track {
+  animation: marquee-scroll 50s linear infinite;
+  will-change: transform;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── Accordion ────────────────────────────────────────────────────────── */
+.accordion-item {
+  border-bottom: 1px solid rgba(255,200,1,0.08);
+}
+.accordion-item:last-child { border-bottom: none; }
+
+.accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: transparent;
+  border: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(241,246,244,0.7);
+  text-align: left;
+  transition: background-color 160ms ease-out;
+}
+.accordion-trigger:hover { background: rgba(17,76,90,0.2); }
+
+.accordion-chevron {
+  transition: transform 280ms ease-in-out;
+  flex-shrink: 0;
+}
+.accordion-chevron.open { transform: rotate(180deg); }
+
+.accordion-body {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 320ms ease-in-out, opacity 280ms ease-in-out;
+}
+
+/* ─── Grid background overlay ─────────────────────────────────────────── */
+.grid-overlay {
+  background-image:
+    linear-gradient(rgba(255,200,1,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,200,1,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ─── SVG pipeline animations (Hero SVG fallback — now replaced by Canvas) */
+@keyframes flow-dash {
+  0%   { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -56; }
+}
+.flow-line {
+  animation: flow-dash 2s linear infinite;
+}
+
+@keyframes pulse-node {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(1.6); }
+}
+.node-pulse {
+  animation: pulse-node 2s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+/* ─── Gauge arc draw-in ────────────────────────────────────────────────── */
+@keyframes gauge-draw {
+  from { stroke-dashoffset: 400; }
+  to   { stroke-dashoffset: 0; }
+}
+.gauge-arc {
+  stroke-dasharray: 400;
+  animation: gauge-draw 1.2s ease-out forwards;
+}
+
+/* ─── Bar chart grow-up ────────────────────────────────────────────────── */
+@keyframes bar-grow {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+.bar-animated {
+  animation: bar-grow 0.6s ease-out forwards;
+  transform-origin: bottom;
+  transform-box: fill-box;
+}
+
+/* ─── Sparkline draw ───────────────────────────────────────────────────── */
+.sparkline-path {
+  fill: none;
+  stroke: var(--c-yellow);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sparkline-area {
+  fill: url(#sparkGrad);
+}
+
+/* ─── Hero entrance animations ─────────────────────────────────────────── */
+@keyframes fadeup {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.anim-fadeup {
+  opacity: 0;
+  animation: fadeup 400ms ease-out forwards;
+}
+.anim-fadein {
+  opacity: 0;
+  animation: fadein 400ms ease-out forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+
+/* ─── Price card featured glow ─────────────────────────────────────────── */
+.price-card.featured {
+  background: rgba(17,76,90,0.25);
+}
+
+/* ─── Hidden md flex (desktop nav) ─────────────────────────────────────── */
+@media (max-width: 767px) {
+  .hidden.md\:flex { display: none !important; }
+}
+
+/* ─── Reduced motion — respect user preference ──────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .flow-line,
+  .node-pulse,
+  .gauge-arc,
+  .bar-animated,
+  .anim-fadeup,
+  .anim-fadein {
+    animation: none !important;
+  }
+  .anim-fadeup,
+  .anim-fadein {
+    opacity: 1 !important;
+  }
+  body, a, button, [role="button"], [role="switch"], label,
+  input[type="checkbox"], input[type="radio"], select,
+  .accordion-trigger, .toggle-track {
+    cursor: auto !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SCROLL REVEAL — base hidden state set by JS, shown via WAAPI
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Fallback: if JS hasn't run yet, keep elements visible */
+[data-sr] {
+  will-change: opacity, transform;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   HERO BACKGROUND — depth layers, no color changes
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.hero-bg-depth {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Radial glow — top right, teal */
+.hero-bg-depth::before {
+  content: '';
+  position: absolute;
+  top: -15%;
+  right: -8%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(
+    ellipse 60% 55% at center,
+    rgba(17, 76, 90, 0.55) 0%,
+    transparent 70%
+  );
+  animation: hero-orb-drift 14s ease-in-out infinite alternate;
+}
+
+/* Radial glow — bottom left, yellow */
+.hero-bg-depth::after {
+  content: '';
+  position: absolute;
+  bottom: 5%;
+  left: -8%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    ellipse 55% 50% at center,
+    rgba(255, 200, 1, 0.055) 0%,
+    transparent 70%
+  );
+  animation: hero-orb-drift 18s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes hero-orb-drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(20px, 30px) scale(1.06); }
+}
+
+/* Dense dot grid on hero — punched up from the 3% in grid-overlay */
+.hero-dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    rgba(255, 200, 1, 0.09) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  mask-image: radial-gradient(
+    ellipse 80% 80% at 50% 50%,
+    black 30%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Scanline texture — ultra-subtle, adds "screen" depth */
+.hero-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.04) 3px,
+    rgba(0, 0, 0, 0.04) 4px
+  );
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   BUTTON GLOW — additive, existing btn-primary color unchanged
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.btn-primary {
+  position: relative;
+  transition:
+    background-color 180ms ease-out,
+    box-shadow 180ms ease-out,
+    transform 180ms ease-out;
+}
+.btn-primary:hover {
+  background: #e6b400;
+  box-shadow:
+    0 0 0 1px rgba(255, 200, 1, 0.3),
+    0 0 24px rgba(255, 200, 1, 0.25),
+    0 4px 16px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 0 12px rgba(255, 200, 1, 0.2);
+  transition-duration: 80ms;
+}
+
+.btn-ghost {
+  transition:
+    border-color 180ms ease-out,
+    color 180ms ease-out,
+    box-shadow 180ms ease-out,
+    transform 180ms ease-out;
+}
+.btn-ghost:hover {
+  border-color: var(--c-yellow);
+  color: var(--c-yellow);
+  box-shadow: inset 0 0 18px rgba(255, 200, 1, 0.04);
+  transform: translateY(-1px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   BENTO CARD HOVER — enhanced beyond just background change
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.bento-card-hover-glow {
+  transition:
+    box-shadow 200ms ease-out,
+    border-color 200ms ease-out;
+}
+.bento-card-hover-glow:hover {
+  box-shadow:
+    inset 0 0 40px rgba(17, 76, 90, 0.25),
+    0 0 0 1px rgba(255, 200, 1, 0.12);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   TESTIMONIAL CARD — lift on hover
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.testimonial-card {
+  transition: background-color 200ms ease-out;
+}
+.testimonial-card:hover {
+  background: rgba(17, 76, 90, 0.18) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   NAV LINK — underline slide in
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--c-yellow);
+  transition: width 180ms ease-out;
+}
+.nav-link:hover::after { width: 100%; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SECTION SEPARATOR — top accent line animation on scroll reveal
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@keyframes line-grow-right {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+.accent-line-animate {
+  animation: line-grow-right 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PRICING CARD — featured card glow pulse
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.price-card.featured {
+  box-shadow: 0 0 0 1px rgba(255, 200, 1, 0.08);
+  transition: box-shadow 200ms ease-out;
+}
+.price-card.featured:hover {
+  box-shadow:
+    0 0 0 1px rgba(255, 200, 1, 0.22),
+    0 0 40px rgba(255, 200, 1, 0.06);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   STATS BAR — number counter shimmer on appear
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@keyframes stat-shimmer {
+  0%   { color: rgba(241, 246, 244, 0.3); }
+  60%  { color: #FFC801; }
+  100% { color: #F1F6F4; }
+}
+
+.stat-value[data-appeared] {
+  animation: stat-shimmer 600ms ease-out forwards;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   REDUCED MOTION — override all additions
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-depth::before,
+  .hero-bg-depth::after { animation: none !important; }
+  .btn-primary:hover,
+  .btn-ghost:hover { transform: none !important; }
+  [data-sr] { opacity: 1 !important; transform: none !important; }
+}
