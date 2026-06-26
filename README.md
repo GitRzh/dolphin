@@ -12,3 +12,7 @@ Demo page for a AI-powered data pipeline automation platform. Built with React a
 - Web Animations API (WAAPI) for motion
 - IntersectionObserver for scroll reveal
 - Zero runtime animation or UI component libraries
+
+---
+
+*Built for the FrontEnd Battle 3.0*
